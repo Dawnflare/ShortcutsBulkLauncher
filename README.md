@@ -1,17 +1,26 @@
-# ShortcutsBulkLauncher
+# Bulk Shortcut Launcher
+
+A Chromium browser extension (Manifest V3) that allows users to drag-and-drop Windows `.url` files to open them in new tabs.
 
 ## Description
-Professional coding project managed with a 3-Layer Agentic Architecture.
+This extension bridges the gap between local shortcut files and browser tabs. By providing a dedicated drop zone, it parses standard Windows URL shortcuts and opens their targets immediately, bypassing the default browser behavior of viewing the file content.
 
 ## Features
-- Modular 3-layer architecture (Directives, Orchestration, Execution).
-- Automated workflow via Gemini Agent.
-- Integrated GitHub synchronization.
+- **Drag & Drop Interface:** Simple drop zone for `.url` files.
+- **Batch Processing:** Open multiple shortcuts simultaneously.
+- **Privacy-Focused:** Runs entirely locally with minimal permissions (`activeTab`).
+- **Dark Mode:** Clean, modern dark theme.
 
-## Usage Guidelines
-- All logic changes must be proposed via a Directive in the `directives/` folder.
-- Deterministic tasks are handled by scripts in `execution/`.
-- Intermediate data is stored in `.tmp/`.
+## Installation
+1. Clone this repository.
+2. Open `chrome://extensions` or `brave://extensions` in your browser.
+3. Enable **Developer mode**.
+4. Click **Load unpacked** and select the `src/` directory.
+
+## Usage
+1. Click the extension icon in the toolbar.
+2. Drag one or more `.url` files from Windows Explorer onto the "Drop Shortcut Files Here" zone.
+3. Watch as tabs open for each valid shortcut.
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+MIT License - see [LICENSE.md](LICENSE.md).
