@@ -6,6 +6,26 @@
 
 const dropZone = document.getElementById('newtab-drop-zone');
 const statusLog = document.getElementById('newtab-status-log');
+const disabledState = document.getElementById('disabled-state');
+
+// Check if the feature is enabled
+chrome.storage.sync.get(['newtabEnabled'], (result) => {
+    const isEnabled = result.newtabEnabled !== false; // Default to enabled
+
+    if (!isEnabled) {
+        // Hide drop zone, show disabled message
+        dropZone.style.display = 'none';
+        disabledState.style.display = 'flex';
+    }
+});
+
+// Enable link click handler
+document.getElementById('enable-link')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    chrome.storage.sync.set({ newtabEnabled: true }, () => {
+        location.reload();
+    });
+});
 
 /**
  * Prevents default browser behavior on dragover to allow drop.
