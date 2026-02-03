@@ -18,24 +18,20 @@
         }
 
         #newtab-drop-zone {
-            width: 80vw;
-            height: 60vh;
-            max-width: 800px;
-            max-height: 500px;
-            border: 3px dashed #89b4fa;
-            border-radius: 16px;
+            width: 100vw;
+            height: 100vh;
+            border: none;
+            border-radius: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: rgba(30, 30, 46, 0.9);
-            transition: all 0.2s ease;
+            background: #1e1e2e;
+            transition: background 0.2s ease;
         }
 
         #newtab-drop-zone.drag-over {
-            border-color: #a6e3a1;
-            background: rgba(166, 227, 161, 0.1);
-            transform: scale(1.02);
+            background: rgba(166, 227, 161, 0.15);
         }
 
         #newtab-drop-zone h1 {
