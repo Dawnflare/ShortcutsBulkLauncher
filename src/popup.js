@@ -102,6 +102,8 @@ function checkCompletion(processed, total, valid) {
     if (processed === total) {
         if (valid > 0) {
             logStatus(`Opened ${valid} tab(s).`);
+            // Auto-close handled after a brief delay to let user see the message
+            setTimeout(() => handleAutoClose(valid), 500);
         } else {
             logStatus('No valid .url files found.');
         }
@@ -149,3 +151,30 @@ heightSlider.addEventListener('input', () => {
 heightSlider.addEventListener('change', () => {
     chrome.storage.sync.set({ dropZoneHeight: parseInt(heightSlider.value) });
 });
+
+// --- Settings: Auto-close Tab ---
+const autoCloseCheckbox = document.getElementById('auto-close-checkbox');
+
+// Load saved auto-close preference
+chrome.storage.sync.get(['autoCloseTab'], (result) => {
+    autoCloseCheckbox.checked = result.autoCloseTab || false;
+});
+
+// Save preference on change
+autoCloseCheckbox.addEventListener('change', () => {
+    chrome.storage.sync.set({ autoCloseTab: autoCloseCheckbox.checked });
+});
+
+/**
+ * Closes the current tab if auto-close is enabled and shortcuts were opened.
+ * @param {number} validCount - Number of valid URLs that were opened.
+ */
+function handleAutoClose(validCount) {
+    if (validCount > 0 && autoCloseCheckbox.checked) {
+        chrome.tabs.getCurrent((tab) => {
+            if (tab) {
+                chrome.tabs.remove(tab.id);
+            }
+        });
+    }
+}

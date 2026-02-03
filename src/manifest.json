@@ -13,7 +13,8 @@
     },
     "permissions": [
         "activeTab",
-        "storage"
+        "storage",
+        "tabs"
     ],
     "commands": {
         "_execute_action": {
