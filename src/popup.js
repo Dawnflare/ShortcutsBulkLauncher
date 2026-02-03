@@ -109,24 +109,43 @@ function checkCompletion(processed, total, valid) {
 }
 
 // --- Settings: Drop Zone Size ---
-const sizeSlider = document.getElementById('size-slider');
-const sizeValue = document.getElementById('size-value');
+const widthSlider = document.getElementById('width-slider');
+const widthValue = document.getElementById('width-value');
+const heightSlider = document.getElementById('height-slider');
+const heightValue = document.getElementById('height-value');
 
-// Load saved size preference
-chrome.storage.sync.get(['dropZoneHeight'], (result) => {
+// Load saved size preferences
+chrome.storage.sync.get(['dropZoneWidth', 'dropZoneHeight'], (result) => {
+    const width = result.dropZoneWidth || 450;
     const height = result.dropZoneHeight || 250;
-    sizeSlider.value = height;
-    sizeValue.textContent = `${height}px`;
+
+    widthSlider.value = width;
+    widthValue.textContent = `${width}px`;
+    document.body.style.width = `${width}px`;
+
+    heightSlider.value = height;
+    heightValue.textContent = `${height}px`;
     dropZone.style.height = `${height}px`;
 });
 
-// Save and apply size on change
-sizeSlider.addEventListener('input', () => {
-    const height = sizeSlider.value;
-    sizeValue.textContent = `${height}px`;
+// Width slider handlers
+widthSlider.addEventListener('input', () => {
+    const width = widthSlider.value;
+    widthValue.textContent = `${width}px`;
+    document.body.style.width = `${width}px`;
+});
+
+widthSlider.addEventListener('change', () => {
+    chrome.storage.sync.set({ dropZoneWidth: parseInt(widthSlider.value) });
+});
+
+// Height slider handlers
+heightSlider.addEventListener('input', () => {
+    const height = heightSlider.value;
+    heightValue.textContent = `${height}px`;
     dropZone.style.height = `${height}px`;
 });
 
-sizeSlider.addEventListener('change', () => {
-    chrome.storage.sync.set({ dropZoneHeight: parseInt(sizeSlider.value) });
+heightSlider.addEventListener('change', () => {
+    chrome.storage.sync.set({ dropZoneHeight: parseInt(heightSlider.value) });
 });

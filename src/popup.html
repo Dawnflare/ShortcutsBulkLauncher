@@ -19,10 +19,16 @@
     <div id="status-log"></div>
     <hr style="border: none; border-top: 1px solid #45475a; margin: 16px 0;">
     <div id="settings">
+      <label
+        style="display: flex; align-items: center; gap: 10px; color: #a6adc8; font-size: 0.85rem; margin-bottom: 8px;">
+        <span style="min-width: 50px;">Width:</span>
+        <input type="range" id="width-slider" min="200" max="1000" value="450" style="flex: 1; accent-color: #89b4fa;">
+        <span id="width-value" style="min-width: 50px; text-align: right;">450px</span>
+      </label>
       <label style="display: flex; align-items: center; gap: 10px; color: #a6adc8; font-size: 0.85rem;">
-        <span>Drop Zone Size:</span>
-        <input type="range" id="size-slider" min="150" max="400" value="250" style="flex: 1; accent-color: #89b4fa;">
-        <span id="size-value" style="min-width: 40px; text-align: right;">250px</span>
+        <span style="min-width: 50px;">Height:</span>
+        <input type="range" id="height-slider" min="150" max="1000" value="250" style="flex: 1; accent-color: #89b4fa;">
+        <span id="height-value" style="min-width: 50px; text-align: right;">250px</span>
       </label>
     </div>
   </main>
