@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bulk Opener</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <header>
     <h1>Bulk Opener</h1>
@@ -15,7 +17,16 @@
       <p>Drag Shortcut Files Here</p>
     </div>
     <div id="status-log"></div>
+    <hr style="border: none; border-top: 1px solid #45475a; margin: 16px 0;">
+    <div id="settings">
+      <label style="display: flex; align-items: center; gap: 10px; color: #a6adc8; font-size: 0.85rem;">
+        <span>Drop Zone Size:</span>
+        <input type="range" id="size-slider" min="150" max="400" value="250" style="flex: 1; accent-color: #89b4fa;">
+        <span id="size-value" style="min-width: 40px; text-align: right;">250px</span>
+      </label>
+    </div>
   </main>
   <script src="popup.js"></script>
 </body>
+
 </html>

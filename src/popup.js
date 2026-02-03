@@ -107,3 +107,26 @@ function checkCompletion(processed, total, valid) {
         }
     }
 }
+
+// --- Settings: Drop Zone Size ---
+const sizeSlider = document.getElementById('size-slider');
+const sizeValue = document.getElementById('size-value');
+
+// Load saved size preference
+chrome.storage.sync.get(['dropZoneHeight'], (result) => {
+    const height = result.dropZoneHeight || 250;
+    sizeSlider.value = height;
+    sizeValue.textContent = `${height}px`;
+    dropZone.style.height = `${height}px`;
+});
+
+// Save and apply size on change
+sizeSlider.addEventListener('input', () => {
+    const height = sizeSlider.value;
+    sizeValue.textContent = `${height}px`;
+    dropZone.style.height = `${height}px`;
+});
+
+sizeSlider.addEventListener('change', () => {
+    chrome.storage.sync.set({ dropZoneHeight: parseInt(sizeSlider.value) });
+});
