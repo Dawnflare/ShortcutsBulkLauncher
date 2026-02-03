@@ -34,6 +34,7 @@ dropZone.addEventListener('drop', (e) => {
     const files = e.dataTransfer.files;
     let validCount = 0;
     let processedCount = 0;
+    let firstTabId = null; // Track the first opened tab
 
     if (files.length === 0) {
         logStatus('No files detected.');
@@ -46,7 +47,7 @@ dropZone.addEventListener('drop', (e) => {
         // Only process .url files
         if (!file.name.toLowerCase().endsWith('.url')) {
             processedCount++;
-            checkCompletion(processedCount, files.length, validCount);
+            checkCompletion(processedCount, files.length, validCount, firstTabId);
             continue;
         }
 
@@ -57,17 +58,24 @@ dropZone.addEventListener('drop', (e) => {
             const url = extractUrl(content);
 
             if (url) {
-                chrome.tabs.create({ url: url, active: false });
-                validCount++;
+                chrome.tabs.create({ url: url, active: false }, (tab) => {
+                    // Store the first tab ID
+                    if (firstTabId === null && tab) {
+                        firstTabId = tab.id;
+                    }
+                    validCount++;
+                    processedCount++;
+                    checkCompletion(processedCount, files.length, validCount, firstTabId);
+                });
+            } else {
+                processedCount++;
+                checkCompletion(processedCount, files.length, validCount, firstTabId);
             }
-
-            processedCount++;
-            checkCompletion(processedCount, files.length, validCount);
         };
 
         reader.onerror = () => {
             processedCount++;
-            checkCompletion(processedCount, files.length, validCount);
+            checkCompletion(processedCount, files.length, validCount, firstTabId);
         };
 
         reader.readAsText(file);
@@ -97,13 +105,14 @@ function logStatus(message) {
  * @param {number} processed - Number of files processed so far.
  * @param {number} total - Total number of files.
  * @param {number} valid - Number of valid URLs opened.
+ * @param {number|null} firstTabId - ID of the first opened tab.
  */
-function checkCompletion(processed, total, valid) {
+function checkCompletion(processed, total, valid, firstTabId) {
     if (processed === total) {
         if (valid > 0) {
             logStatus(`Opened ${valid} tab(s).`);
             // Auto-close handled after a brief delay to let user see the message
-            setTimeout(() => handleAutoClose(valid), 500);
+            setTimeout(() => handleAutoClose(valid, firstTabId), 500);
         } else {
             logStatus('No valid .url files found.');
         }
@@ -167,14 +176,21 @@ autoCloseCheckbox.addEventListener('change', () => {
 
 /**
  * Closes the active tab if auto-close is enabled and shortcuts were opened.
+ * Then activates the first opened shortcut tab.
  * @param {number} validCount - Number of valid URLs that were opened.
+ * @param {number|null} firstTabId - ID of the first opened tab to activate.
  */
-function handleAutoClose(validCount) {
+function handleAutoClose(validCount, firstTabId) {
     if (validCount > 0 && autoCloseCheckbox.checked) {
         // Query for the active tab in the current window
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
             if (tabs && tabs.length > 0) {
-                chrome.tabs.remove(tabs[0].id);
+                chrome.tabs.remove(tabs[0].id, () => {
+                    // After closing, activate the first opened shortcut tab
+                    if (firstTabId) {
+                        chrome.tabs.update(firstTabId, { active: true });
+                    }
+                });
             }
         });
     }
