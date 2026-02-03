@@ -166,14 +166,15 @@ autoCloseCheckbox.addEventListener('change', () => {
 });
 
 /**
- * Closes the current tab if auto-close is enabled and shortcuts were opened.
+ * Closes the active tab if auto-close is enabled and shortcuts were opened.
  * @param {number} validCount - Number of valid URLs that were opened.
  */
 function handleAutoClose(validCount) {
     if (validCount > 0 && autoCloseCheckbox.checked) {
-        chrome.tabs.getCurrent((tab) => {
-            if (tab) {
-                chrome.tabs.remove(tab.id);
+        // Query for the active tab in the current window
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            if (tabs && tabs.length > 0) {
+                chrome.tabs.remove(tabs[0].id);
             }
         });
     }
