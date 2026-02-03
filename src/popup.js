@@ -128,15 +128,15 @@ chrome.storage.sync.get(['dropZoneWidth', 'dropZoneHeight'], (result) => {
     dropZone.style.height = `${height}px`;
 });
 
-// Width slider handlers
+// Width slider handlers - only apply on release to prevent layout thrashing
 widthSlider.addEventListener('input', () => {
-    const width = widthSlider.value;
-    widthValue.textContent = `${width}px`;
-    document.body.style.width = `${width}px`;
+    widthValue.textContent = `${widthSlider.value}px`;
 });
 
 widthSlider.addEventListener('change', () => {
-    chrome.storage.sync.set({ dropZoneWidth: parseInt(widthSlider.value) });
+    const width = parseInt(widthSlider.value);
+    document.body.style.width = `${width}px`;
+    chrome.storage.sync.set({ dropZoneWidth: width });
 });
 
 // Height slider handlers
