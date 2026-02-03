@@ -13,7 +13,7 @@ This extension bridges the gap between local shortcut files and browser tabs. By
 ### Core
 - **Drag & Drop Interface:** Simple, intuitive drop zone for `.url` files
 - **Batch Processing:** Open multiple shortcuts simultaneously
-- **Keyboard Shortcut:** Press `Ctrl+Shift+U` (Mac: `Cmd+Shift+U`) to quickly open the popup
+- **Keyboard Shortcut:** Press `Alt+Shift+L` (Mac: `Option+Shift+L`) to quickly open the popup
 - **Privacy-Focused:** Runs entirely locally with minimal permissions
 
 ### Customization
@@ -38,7 +38,7 @@ This extension bridges the gap between local shortcut files and browser tabs. By
 ## Usage
 
 ### Basic Usage
-1. Click the extension icon in the toolbar (or press `Ctrl+Shift+U`)
+1. Click the extension icon in the toolbar (or press `Alt+Shift+L`)
 2. Drag one or more `.url` files from Windows Explorer onto the drop zone
 3. Watch as tabs open for each valid shortcut
 
@@ -52,7 +52,7 @@ This extension bridges the gap between local shortcut files and browser tabs. By
 - When enabled, the current tab closes and focus switches to the first opened shortcut
 
 ### Keyboard Shortcut
-- Default: `Ctrl+Shift+U` (Windows/Linux) or `Cmd+Shift+U` (Mac)
+- Default: `Alt+Shift+L` (Windows/Linux) or `Option+Shift+L` (Mac)
 - Customize in `chrome://extensions/shortcuts` or `brave://extensions/shortcuts`
 
 ## Permissions
