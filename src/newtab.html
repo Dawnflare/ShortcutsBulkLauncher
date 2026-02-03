@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Tab - Bulk Opener</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Full-page drop zone styling */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #newtab-drop-zone {
+            width: 80vw;
+            height: 60vh;
+            max-width: 800px;
+            max-height: 500px;
+            border: 3px dashed #89b4fa;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(30, 30, 46, 0.9);
+            transition: all 0.2s ease;
+        }
+
+        #newtab-drop-zone.drag-over {
+            border-color: #a6e3a1;
+            background: rgba(166, 227, 161, 0.1);
+            transform: scale(1.02);
+        }
+
+        #newtab-drop-zone h1 {
+            color: #cdd6f4;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        #newtab-drop-zone p {
+            color: #6c7086;
+            font-size: 1.1rem;
+        }
+
+        #newtab-status-log {
+            margin-top: 1rem;
+            color: #a6adc8;
+            font-size: 0.9rem;
+            min-height: 1.2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="newtab-drop-zone">
+        <h1>📎 Bulk Shortcut Opener</h1>
+        <p>Drag .url files here to open them</p>
+        <div id="newtab-status-log"></div>
+    </div>
+    <script src="newtab.js"></script>
+</body>
+
+</html>

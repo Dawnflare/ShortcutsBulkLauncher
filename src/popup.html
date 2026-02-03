@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bulk Opener</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <header>
     <h1>Bulk Opener</h1>
@@ -15,7 +17,15 @@
       <p>Drag Shortcut Files Here</p>
     </div>
     <div id="status-log"></div>
+    <hr style="border-color: #45475a; margin: 12px 0;">
+    <div id="settings">
+      <label style="display: flex; align-items: center; gap: 8px; color: #a6adc8; font-size: 0.85rem;">
+        <input type="checkbox" id="newtab-toggle" style="accent-color: #89b4fa;">
+        Enable New Tab drop zone
+      </label>
+    </div>
   </main>
   <script src="popup.js"></script>
 </body>
+
 </html>

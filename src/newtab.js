@@ -1,10 +1,11 @@
 /**
- * popup.js
- * Handles drag-and-drop events, parses .url files, and opens extracted URLs in new tabs.
+ * newtab.js
+ * Handles drag-and-drop events on the new tab page.
+ * Reuses logic from popup.js for parsing .url files.
  */
 
-const dropZone = document.getElementById('drop-zone');
-const statusLog = document.getElementById('status-log');
+const dropZone = document.getElementById('newtab-drop-zone');
+const statusLog = document.getElementById('newtab-status-log');
 
 /**
  * Prevents default browser behavior on dragover to allow drop.
@@ -107,16 +108,3 @@ function checkCompletion(processed, total, valid) {
         }
     }
 }
-
-// --- Settings Toggle ---
-const newtabToggle = document.getElementById('newtab-toggle');
-
-// Load saved preference
-chrome.storage.sync.get(['newtabEnabled'], (result) => {
-    newtabToggle.checked = result.newtabEnabled !== false; // Default to enabled
-});
-
-// Save preference on change
-newtabToggle.addEventListener('change', () => {
-    chrome.storage.sync.set({ newtabEnabled: newtabToggle.checked });
-});
